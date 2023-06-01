@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+    }
+
+    .chat-container {
+      width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .message {
+      text-align: left;
+      margin-bottom: 10px;
+    }
+
+    .message span {
+      font-weight: bold;
+    }
+
+    .chat-input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+  </style>
+  <script>
+    function sendMessage() {
+      var messageInput = document.getElementById("messageInput");
+      var message = messageInput.value;
+
+      if (message.trim() !== "") {
+        var chatContainer = document.getElementById("chatContainer");
+        var loggedInUser = localStorage.getItem("loggedInUser");
+        var newMessage = document.createElement("div");
+        newMessage.className = "message";
+        newMessage.innerHTML = "<span>" + loggedInUser + ":</span> " + message;
+        chatContainer.appendChild(newMessage);
+
+        messageInput.value = "";
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="chat-container">
+    <h2>Welcome to the Chat</h2>
+
+    <div id="chatContainer"></div>
+
+    <input type="text" id="messageInput" class="chat-input" placeholder="Type your message...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    // Retrieve the logged-in user from local storage
+    var loggedInUser = localStorage.getItem("loggedInUser");
+    if (loggedInUser) {
+      // Display the logged-in user's name
+      document.getElementById("chatContainer").innerHTML = "<p>Logged in as: " + loggedInUser + "</p>";
+    } else {
+      // If user is not logged in, redirect to the login page
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
